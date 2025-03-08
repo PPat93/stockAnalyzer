@@ -14,7 +14,9 @@ for the calculations.
 # py.exe -3.12 -m pip install TA_Lib-0.4.29-cp312-cp312-win_amd64.whl
 
 import talib
+import pandas as pd
 import yfinance as yf
+
 
 # def calc_rsi(data, window=14, adjust=False):
 #     delta = data["Close"].diff(1).dropna()
@@ -45,7 +47,6 @@ class RSI:
 
         data_res = yf.download(self.ticker, self.start_date, self.end_date)
 
-        # pylint: disable=no-member
-        data_res["RSI"] = talib.RSI(data_res["Close"], 14)
+        # New RSI calculation - to be implemented. Get rid of TaLib
 
-        return data_res["RSI"]
+        return 'data_res["RSI"]'

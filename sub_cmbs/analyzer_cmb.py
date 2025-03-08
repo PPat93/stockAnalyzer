@@ -17,13 +17,13 @@ class Stock:
     """Class for entire stock analysis."""
 
     def __init__(
-        self,
-        ticker: str,
-        start_date: str,
-        end_date: str,
-        timeframe: str,
-        period: int,
-        trend_direction: str,
+            self,
+            ticker: str,
+            start_date: str,
+            end_date: str,
+            timeframe: str,
+            period: int,
+            trend_direction: str,
     ) -> bool:
         self.ticker = ticker
         self.start_date = start_date
