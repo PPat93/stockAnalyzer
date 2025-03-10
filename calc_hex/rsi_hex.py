@@ -10,17 +10,7 @@ Base calculations are given in the comment.
 """
 
 import yfinance as yf
-import pandas_market_calendars as pmcal
-
-
-def calculate_window(start_date, end_date, market):
-    """Calculate trading days between specified dates for the provided exchange.
-    Calculation excludes weekends and holidays"""
-
-    exchange = pmcal.get_calendar(market)
-    schedule = exchange.schedule(start_date=start_date, end_date=end_date)
-
-    return len(schedule)
+import utils.utils as ut
 
 
 class RSI:
@@ -38,7 +28,7 @@ class RSI:
         """Retrieve specified stock data range and calculate its RSI"""
 
         data_res = yf.download(self.ticker, self.start_date, self.end_date)
-        window = calculate_window(self.start_date, self.end_date)
+        window = ut.calculate_window(self.start_date, self.end_date, self.market)
         delta = data_res["Close"].diff(1).dropna()
         loss = delta.copy()
         gains = delta.copy()
@@ -52,4 +42,6 @@ class RSI:
         RS = gain_ewm / loss_ewm
         RSI = 100 - 100 / (1 + RS)
 
-        return data_res[RSI]
+        data_res['RSI'] = RSI
+
+        return data_res['RSI']

@@ -42,7 +42,7 @@ class Stock:
         fibonacci_new = fibs.FibonacciRetrace(
             self.ticker, self.start_date, self.end_date, self.trend_direction
         )
-        rsi_new = rsi.RSI(self.ticker, self.start_date, self.end_date, self.adjust)
+        rsi_new = rsi.RSI(self.ticker, self.start_date, self.end_date, adjust=self.adjust)
         macd_new = macd.MACD(self.ticker, self.timeframe)
 
         latest_price = float((self.stock_retriever.retrieve_last_stock_price()))
