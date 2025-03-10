@@ -17,13 +17,13 @@ class Stock:
     """Class for entire stock analysis."""
 
     def __init__(
-        self,
-        ticker: str,
-        start_date: str,
-        end_date: str,
-        timeframe: str,
-        period: int,
-        trend_direction: str,
+            self,
+            ticker: str,
+            start_date: str,
+            end_date: str,
+            timeframe: str,
+            period: int,
+            trend_direction: str,
     ) -> bool:
         self.ticker = ticker
         self.start_date = start_date
@@ -33,6 +33,7 @@ class Stock:
         self.period = period
         self.trend_direction = trend_direction
         self.stock_retriever = retriever.StockRetriever(self.ticker)
+        self.adjust = False
 
     def run_trend_analysis(self):
         """Method allowing for complete stock trend analysis run from one place"""
@@ -41,7 +42,7 @@ class Stock:
         fibonacci_new = fibs.FibonacciRetrace(
             self.ticker, self.start_date, self.end_date, self.trend_direction
         )
-        rsi_new = rsi.RSI(self.ticker, self.start_date, self.end_date)
+        rsi_new = rsi.RSI(self.ticker, self.start_date, self.end_date, adjust=self.adjust)
         macd_new = macd.MACD(self.ticker, self.timeframe)
 
         latest_price = float((self.stock_retriever.retrieve_last_stock_price()))
