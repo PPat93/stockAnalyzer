@@ -1,5 +1,5 @@
 """ 
-Plotter Comb:
+Plotter component:
 Sends/Receives data from Integrator: <- Analyzer, <- Database, -> Mailer;
 Creates graphs for content of notification emails;
 """

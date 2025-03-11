@@ -1,5 +1,5 @@
 """
-MACD hex:
+MACD calcs:
 Calculates The Moving Average Convergence/Divergence for a given stock ticker.
 Helps with identification of price trends and measurement oftrend momentum. 
 Also, it shows points for buying and selling. However, it needs other factors and 
@@ -9,7 +9,7 @@ shorter period.
 """
 
 import numpy as np
-from . import ema_hex as ema
+from . import ema_clc as ema
 
 # MACD = 12-PeriodEMA − 26-PeriodEMA
 # EMAs - 12 periods and 26 periods Exponential Moving Average

@@ -1,5 +1,5 @@
 """
-Integrator comb:
+Integrator component:
 Integrates modules;
 Passes flags invoking actions;
 Holds actions confirmations;
@@ -12,7 +12,7 @@ Database -> Integrator -> Mailer
 """
 
 import time
-from sub_cmbs.analyzer_cmb import Stock as stck
+from sub_components.analyzer_cmp import Stock as stck
 
 stocks = {}
 
@@ -24,12 +24,12 @@ def check_dictionary(dictionary, string):
 
 
 def invoke_trend_analysis(
-    ticker: str,
-    start_date: str,
-    end_date: str,
-    timeframe: str,
-    period: int,
-    trend_direction: str,
+        ticker: str,
+        start_date: str,
+        end_date: str,
+        timeframe: str,
+        period: int,
+        trend_direction: str,
 ):
     """Execute trend analysis"""
 
