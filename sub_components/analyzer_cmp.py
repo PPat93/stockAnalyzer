@@ -1,16 +1,16 @@
 """
-Analyzer comb:
-Sends/Receives data from Integrator Comb: <-> Database, <- API Data Retriever, ->Mailer;
+Analyzer component:
+Sends/Receives data from Integrator component: <-> Database, <- API Data Retriever, ->Mailer;
 Compares received stock price with previously stored reference price/time data;
 Saves compared data as a new reference if expected;
 Remove old reference data if expected;
 """
 
-import calc_hex.rsi_hex as rsi
-import calc_hex.macd_hex as macd
-import calc_hex.ema_hex as ema
-import calc_hex.fibonacci_retracements_hex as fibs
-from . import api_retriever_cmb as retriever
+import calcs.rsi_clc as rsi
+import calcs.macd_clc as macd
+import calcs.ema_clc as ema
+import calcs.fibonacci_retracements_clc as fibs
+from . import api_retriever_cmp as retriever
 
 
 class Stock:

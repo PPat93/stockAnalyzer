@@ -1,5 +1,5 @@
 """
-EMA hex:
+EMA calcs:
 Calculates Exponential Moving Average for a given stock ticker on specified period.
 Most recent data points are more important than older ones. Therefore, it reacts 
 more the more recent price change is. Usually used to find buy/sell signals.
