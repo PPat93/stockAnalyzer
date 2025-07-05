@@ -12,7 +12,7 @@ Database -> Integrator -> Mailer
 """
 
 import time
-from sub_components.analyzer_cmp import Stock as stck
+from sub_components.trend_analyzer_cmp import Stock as stck
 
 stocks = {}
 
