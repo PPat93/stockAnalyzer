@@ -14,9 +14,5 @@ class CoreStock:
 
     def core_analyze(self):
         core_item = retriever.StockRetriever(self.ticker)
-        core_item_data = core_item.retrieve_stock_fundamental_data()
+        core_item_data = core_item.retrieve_stock_dataset_data("cash-flow-statement-growth")
         print(core_item_data)
-
-
-a = CoreStock('CMA')
-a.core_analyze()

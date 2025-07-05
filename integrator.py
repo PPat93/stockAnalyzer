@@ -68,6 +68,6 @@ def invoke_core_analysis(ticker: str):
     core_stock.core_analyze()
 
 
-invoke_core_analysis("CMA")
+invoke_core_analysis("AAPL")
 # invoke_trend_analysis("CMA", "2025-01-01", "2025-02-17", "long", 26, "up")
 # invoke_trend_analysis("NVDA", "2024-05-02", "2024-07-07", "long", 26, "up")

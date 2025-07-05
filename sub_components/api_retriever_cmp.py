@@ -10,6 +10,7 @@ import os
 import requests
 
 FUNDAMENTAL_API_KEY = os.environ.get("fundamentalRetrieverApiKey")
+DATASET_API_KEY = os.environ.get("datasetRetrieverApiKey")
 PRICE_API_KEY = os.environ.get("realtimeRetrieverApiKey")
 HEADERS = {"Content-Type": "application/json"}
 
@@ -43,6 +44,15 @@ class StockRetriever:
         fundamental_json = fundamental_res.json()
 
         return fundamental_json
+
+    def retrieve_stock_dataset_data(self, dataset: str):
+        """Retrieve specified dataset data for the specified stock"""
+        dataset_api_uri = f"https://financialmodelingprep.com/stable/{dataset}?symbol={self.ticker}&apikey={DATASET_API_KEY}"
+        print(dataset_api_uri)
+        dataset_res = requests.get(dataset_api_uri, headers=HEADERS, timeout=10)
+        print(dataset_res.json())
+
+        # return dataset_json
 
 
 class CryptoRetriever:
