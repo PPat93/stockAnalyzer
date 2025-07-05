@@ -13,7 +13,7 @@ import calcs.fibonacci_retracements_clc as fibs
 from . import api_retriever_cmp as retriever
 
 
-class Stock:
+class TrendStock:
     """Class for entire stock analysis."""
 
     def __init__(

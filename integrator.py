@@ -12,7 +12,9 @@ Database -> Integrator -> Mailer
 """
 
 import time
-from sub_components.trend_analyzer_cmp import Stock as stck
+from sub_components.trend_analyzer_cmp import TrendStock as TrendStck
+from sub_components.core_analyzer_cmp import CoreStock as CoreStck
+
 
 stocks = {}
 
@@ -42,7 +44,7 @@ def invoke_trend_analysis(
         timestamp = int(time.time())
         new_key = ticker + str(timestamp)
         current_stock = check_existing[0]
-        stocks[new_key] = stck(
+        stocks[new_key] = TrendStck(
             ticker, start_date, end_date, timeframe, period, trend_direction
         )
         del stocks[current_stock]
@@ -52,7 +54,7 @@ def invoke_trend_analysis(
     else:
         timestamp = int(time.time())
         current_stock = ticker + str(timestamp)
-        stocks[current_stock] = stck(
+        stocks[current_stock] = TrendStck(
             ticker, start_date, end_date, timeframe, period, trend_direction
         )
 
@@ -61,6 +63,11 @@ def invoke_trend_analysis(
 
     # return analysis_result TODOs
 
+def invoke_core_analysis(ticker: str):
+    core_stock = CoreStck(ticker)
+    core_stock.core_analyze()
 
-invoke_trend_analysis("CMA", "2025-01-01", "2025-02-17", "long", 26, "up")
-invoke_trend_analysis("NVDA", "2024-05-02", "2024-07-07", "long", 26, "up")
+
+invoke_core_analysis("CMA")
+# invoke_trend_analysis("CMA", "2025-01-01", "2025-02-17", "long", 26, "up")
+# invoke_trend_analysis("NVDA", "2024-05-02", "2024-07-07", "long", 26, "up")
