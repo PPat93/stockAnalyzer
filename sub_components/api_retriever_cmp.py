@@ -6,8 +6,8 @@ Receives response with retrieved values;
 Extract values from the response and deletes everything that is not needed;
 """
 
-import os
-import requests
+import os, requests
+
 
 FUNDAMENTAL_API_KEY = os.environ.get("fundamentalRetrieverApiKey")
 PRICE_API_KEY = os.environ.get("realtimeRetrieverApiKey")
