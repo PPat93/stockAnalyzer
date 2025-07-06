@@ -10,7 +10,6 @@ import os
 import requests
 
 FUNDAMENTAL_API_KEY = os.environ.get("fundamentalRetrieverApiKey")
-DATASET_API_KEY = os.environ.get("datasetRetrieverApiKey")
 PRICE_API_KEY = os.environ.get("realtimeRetrieverApiKey")
 HEADERS = {"Content-Type": "application/json"}
 
@@ -36,23 +35,14 @@ class StockRetriever:
         return price_json[0].get("tngoLast")
 
     # max 25 reqs/day
-    def retrieve_stock_fundamental_data(self):
+    def retrieve_stock_fundamental_data(self, function="OVERVIEW"):
         """Retrieve fundamental data for the specified stock"""
-        fundamental_api_uri = f"https://www.alphavantage.co/query?function=OVERVIEW&symbol={self.ticker}&apikey={FUNDAMENTAL_API_KEY}"
+        fundamental_api_uri = f"https://www.alphavantage.co/query?function={function}&symbol={self.ticker}&apikey={FUNDAMENTAL_API_KEY}"
 
         fundamental_res = requests.get(fundamental_api_uri, headers=HEADERS, timeout=10)
         fundamental_json = fundamental_res.json()
 
         return fundamental_json
-
-    def retrieve_stock_dataset_data(self, dataset: str):
-        """Retrieve specified dataset data for the specified stock"""
-        dataset_api_uri = f"https://financialmodelingprep.com/stable/{dataset}?symbol={self.ticker}&apikey={DATASET_API_KEY}"
-        print(dataset_api_uri)
-        dataset_res = requests.get(dataset_api_uri, headers=HEADERS, timeout=10)
-        print(dataset_res.json())
-
-        # return dataset_json
 
 
 class CryptoRetriever:
