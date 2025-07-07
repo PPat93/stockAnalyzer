@@ -6,7 +6,6 @@ Gets value from APIs and compares against required values;
 Returns grading for each compared variable;
 """
 
-import json
 from . import api_retriever_cmp as retriever
 
 
@@ -14,19 +13,31 @@ class CoreStock:
     """Class for CORE stock analysis"""
 
     def __init__(self, ticker: str):
+        self.cash_flows_data = None
+        self.income_statements_data = None
         self.ticker = ticker
+        self.core_item_retriever = None
 
-    def calculate_fcf(self, core_item_retriever):
+    def get_cash_flows(self):
+        """Get Cash Flows data for the ticker if they were not retrieved before."""
+        if self.cash_flows_data is None:
+            self.cash_flows_data = self.core_item_retriever.retrieve_stock_fundamental_data("CASH_FLOW")
+        return self.cash_flows_data
+
+    def get_income_statements(self):
+        """Get Income Statements data for the ticker if they were not retrieved before."""
+        if self.income_statements_data is None:
+            self.income_statements_data = self.core_item_retriever.retrieve_stock_fundamental_data("INCOME_STATEMENT")
+        return self.income_statements_data
+
+    def calculate_fcf(self):
         """Calculate Free Cash Flows for the ticker for last 5 years"""
-        # loaded_data = json.loads(data)
-        core_item_data = core_item_retriever.retrieve_stock_fundamental_data("CASH_FLOW")
-        print(core_item_data['annualReports'][0])
+        self.get_cash_flows()
+        self.get_income_statements()
+        cash_flow_from_operating_activities = self.cash_flows_data['annualReports'][0]['operatingCashflow']
+        interest_expense = self.income_statements_data['annualReports'][0]['interestExpense']
 
-    def core_analyze(self, expected_function="OVERVIEW"):
-        """Retrieve required data for the stock ticker. Method is invoked on ticker defined
-        during class creation but expected dataset must be specified in expected_function.
-        OVERVIEW argument is passed by default. """
-
-        core_item_retriever = retriever.StockRetriever(self.ticker)
-
-        self.calculate_fcf(core_item_retriever)
+    def core_analyze(self):
+        """Create a retriever for specified ticket and invoke Free Cash Flow calculation."""
+        self.core_item_retriever = retriever.StockRetriever(self.ticker)
+        self.calculate_fcf()
