@@ -30,14 +30,26 @@ class CoreStock:
             self.income_statements_data = self.core_item_retriever.retrieve_stock_fundamental_data("INCOME_STATEMENT")
         return self.income_statements_data
 
-    def calculate_fcf(self):
-        """Calculate Free Cash Flows for the ticker for last 5 years"""
+    def calculate_fcff(self):
+        """Calculate Free Cash Flows for the ticker for last 5 years
+        Cash Flow from Operating Activities + Interest Expense - Tax Shield on Interest Expense - Capital Expenditures"""
+
         self.get_cash_flows()
         self.get_income_statements()
-        cash_flow_from_operating_activities = self.cash_flows_data['annualReports'][0]['operatingCashflow']
-        interest_expense = self.income_statements_data['annualReports'][0]['interestExpense']
+
+        cash_flow_from_operating_activities = int(self.cash_flows_data['annualReports'][0]['operatingCashflow'])
+        capex = int(self.cash_flows_data['annualReports'][0]['capitalExpenditures'])
+        interest_expense = int(self.income_statements_data['annualReports'][0]['interestExpense'])
+
+        # Calculate Tax Shield on Interest Expense
+        income_tax_expense = int(self.income_statements_data['annualReports'][0]['incomeTaxExpense'])
+        income_before_tax = int(self.income_statements_data['annualReports'][0]['incomeBeforeTax'])
+        tax_rate = income_tax_expense / income_before_tax
+        tax_shield_on_interest_expense = abs(tax_rate) * interest_expense
+
+        return cash_flow_from_operating_activities + interest_expense + tax_shield_on_interest_expense - capex
 
     def core_analyze(self):
         """Create a retriever for specified ticket and invoke Free Cash Flow calculation."""
         self.core_item_retriever = retriever.StockRetriever(self.ticker)
-        self.calculate_fcf()
+        self.calculate_fcff()
