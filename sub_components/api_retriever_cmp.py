@@ -6,8 +6,8 @@ Receives response with retrieved values;
 Extract values from the response and deletes everything that is not needed;
 """
 
-import os
-import requests
+import os, requests
+
 
 FUNDAMENTAL_API_KEY = os.environ.get("fundamentalRetrieverApiKey")
 PRICE_API_KEY = os.environ.get("realtimeRetrieverApiKey")
@@ -35,9 +35,9 @@ class StockRetriever:
         return price_json[0].get("tngoLast")
 
     # max 25 reqs/day
-    def retrieve_stock_fundamental_data(self):
+    def retrieve_stock_fundamental_data(self, function="OVERVIEW"):
         """Retrieve fundamental data for the specified stock"""
-        fundamental_api_uri = f"https://www.alphavantage.co/query?function=OVERVIEW&symbol={self.ticker}&apikey={FUNDAMENTAL_API_KEY}"
+        fundamental_api_uri = f"https://www.alphavantage.co/query?function={function}&symbol={self.ticker}&apikey={FUNDAMENTAL_API_KEY}"
 
         fundamental_res = requests.get(fundamental_api_uri, headers=HEADERS, timeout=10)
         fundamental_json = fundamental_res.json()

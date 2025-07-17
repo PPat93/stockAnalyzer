@@ -1,1 +1,1 @@
-from . import analyzer_cmp, api_retriever_cmp, database_cmp, mailer_cmp, plotter_cmp
+from . import trend_analyzer_cmp, api_retriever_cmp, database_cmp, mailer_cmp, plotter_cmp
