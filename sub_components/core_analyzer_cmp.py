@@ -15,15 +15,23 @@ class CoreStock:
     def __init__(self, ticker: str):
         self.cash_flows_data = None
         self.income_statements_data = None
+        self.balance_sheet = None
         self.ticker = ticker
         self.core_item_retriever = None
         self.fcff_array = []
+        self.total_debt = None
 
     def get_cash_flows(self):
         """Get Cash Flows data for the ticker if they were not retrieved before."""
         if self.cash_flows_data is None:
             self.cash_flows_data = self.core_item_retriever.retrieve_stock_fundamental_data("CASH_FLOW")
         return self.cash_flows_data
+
+    def get_balance_sheet(self):
+        """Get Balance Sheet data for the ticker if they were not retrieved before."""
+        if self.balance_sheet is None:
+            self.balance_sheet = self.core_item_retriever.retrieve_stock_fundamental_data("BALANCE_SHEET")
+        return self.balance_sheet
 
     def get_income_statements(self):
         """Get Income Statements data for the ticker if they were not retrieved before."""
@@ -52,6 +60,17 @@ class CoreStock:
             self.fcff_array.append(cash_flow_from_operating_activities + interest_expense + tax_shield_on_interest_expense - capex)
 
         return self.fcff_array
+
+    def calculate_debt_by_fcff(self):
+        """Calculate Debt divided by Free Cash Flows indicator for the last 5 years.
+        Total Debt / FCF"""
+
+        self.get_cash_flows()
+        self.get_balance_sheet()
+
+
+
+
 
     def core_analyze(self):
         """Create a retriever for specified ticket and invoke Free Cash Flow calculation."""
